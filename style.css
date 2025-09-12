@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+.game-card {
+  background: #fff;
+  padding: 15px;
+  margin: 15px auto;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
