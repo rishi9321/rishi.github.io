@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rishi's Game Hub</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=INR"></script>
+  <script src="js/snake.js" defer></script>
+  <script src="js/ludo.js" defer></script>
+  <script src="js/callbreak.js" defer></script>
 </head>
 <body>
   <h1>Welcome to Rishi's Game Hub!</h1>
@@ -14,98 +15,20 @@
   <h2>Games</h2>
   <ul>
     <li>
-      <strong>Snake & Ladder</strong>
-      <button onclick="startSnake(false)">Play Free</button>
-      <div id="paypal-snake"></div>
+      Snake & Ladder
+      <button onclick="playSnakeFree()">Play Free</button>
+      <button onclick="playSnakePaid()">Play Paid</button>
     </li>
     <li>
-      <strong>Ludo</strong>
-      <button onclick="startLudo(false)">Play Free</button>
-      <div id="paypal-ludo"></div>
+      Ludo
+      <button onclick="playLudoFree()">Play Free</button>
+      <button onclick="playLudoPaid()">Play Paid</button>
     </li>
     <li>
-      <strong>Call Break</strong>
-      <button onclick="startCallBreak(false)">Play Free</button>
-      <div id="paypal-callbreak"></div>
+      Call Break
+      <button onclick="playCallBreakFree()">Play Free</button>
+      <button onclick="playCallBreakPaid()">Play Paid</button>
     </li>
   </ul>
-
-  <script src="js/snake.js"></script>
-  <script src="js/ludo.js"></script>
-  <script src="js/callbreak.js"></script>
-
-  <script>
-    const PAYPAL_EMAIL = "rksingh9321@gmail.com";
-
-    // Initialize PayPal buttons for paid versions
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: '1' // Rs 1 per player
-            },
-            payee: {
-              email_address: PAYPAL_EMAIL
-            }
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert('Payment completed by ' + details.payer.name.given_name);
-          // Start paid game after successful payment
-          if(this.container.id === "paypal-snake") startSnake(true);
-          if(this.container.id === "paypal-ludo") startLudo(true);
-          if(this.container.id === "paypal-callbreak") startCallBreak(true);
-        }.bind(this));
-      }
-    }).render('#paypal-snake');
-
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: { value: '1' },
-            payee: { email_address: PAYPAL_EMAIL }
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert('Payment completed by ' + details.payer.name.given_name);
-          startLudo(true);
-        });
-      }
-    }).render('#paypal-ludo');
-
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: { value: '1' },
-            payee: { email_address: PAYPAL_EMAIL }
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert('Payment completed by ' + details.payer.name.given_name);
-          startCallBreak(true);
-        });
-      }
-    }).render('#paypal-callbreak');
-
-    // Free or paid start functions
-    function startSnake(isPaid) { 
-      snakeGameStart(isPaid); 
-    }
-    function startLudo(isPaid) { 
-      startGameLudo(isPaid); 
-    }
-    function startCallBreak(isPaid) { 
-      startGameCallBreak(isPaid); 
-    }
-  </script>
 </body>
 </html>

@@ -1,32 +1,32 @@
-// Detect if paid mode
-const urlParams = new URLSearchParams(window.location.search);
-const isPaid = urlParams.get('paid') === 'true';
+// Call Break JS
 
-// Players and initial balance
-let players = [
-  { name: 'Player 1', balance: isPaid ? 0.25 : 0 },
-  { name: 'Player 2', balance: isPaid ? 0.25 : 0 },
-  { name: 'Player 3', balance: isPaid ? 0.25 : 0 },
-  { name: 'Player 4', balance: isPaid ? 0.25 : 0 }
-];
-
-// Start game
-function startGame() {
-  alert(isPaid ? "Paid Call Break game started!" : "Free Call Break game started!");
-  // Your Call Break game logic here...
+// Free Mode
+function playCallBreakFree() {
+    alert("Starting Call Break Free Mode!");
+    // TODO: Add your existing 4-player free game logic here
 }
 
-// When game ends, distribute rewards if paid
-function endGame(winnerIndex) {
-  if(isPaid) {
-    const winner = players[winnerIndex];
-    winner.balance += 3; // Winner gets 3 INR
-    alert(`Winner: ${winner.name} wins 3 INR!`);
-    // Record the remaining Rs 1 to your PayPal account
-  } else {
-    alert(`Winner: ${players[winnerIndex].name}`);
-  }
-}
+// Paid Mode
+function playCallBreakPaid() {
+    const paypalDiv = document.getElementById('paypal-button-container') || document.createElement("div");
+    paypalDiv.id = "paypal-button-container";
+    if (!document.getElementById('paypal-button-container')) document.body.appendChild(paypalDiv);
 
-// Example start
-startGame();
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: { value: '4.00' }  // Rs 1 per player, 4 players
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Payment completed! Starting Paid Call Break.');
+                // TODO: Start your 4-player paid game logic here
+                // After game ends:
+                // Winner gets Rs 3, Rs 1 goes to PayPal rksingh9321@gmail.com
+            });
+        }
+    }).render('#paypal-button-container');
+}

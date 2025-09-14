@@ -1,30 +1,32 @@
-// Detect if paid mode
-const urlParams = new URLSearchParams(window.location.search);
-const isPaid = urlParams.get('paid') === 'true';
+// Snake & Ladder JS
 
-// Players and initial balance
-let players = [
-  { name: 'Player 1', balance: isPaid ? 0.5 : 0 },
-  { name: 'Player 2', balance: isPaid ? 0.5 : 0 }
-];
-
-// Start game
-function startGame() {
-  alert(isPaid ? "Paid Snake & Ladder game started!" : "Free Snake & Ladder game started!");
-  // Game logic here...
+// Free Mode
+function playSnakeFree() {
+    alert("Starting Snake & Ladder Free Mode!");
+    // TODO: Add your existing 2-player free game logic here
 }
 
-// When game ends, distribute rewards if paid
-function endGame(winnerIndex) {
-  if(isPaid) {
-    const winner = players[winnerIndex];
-    winner.balance += 1.5; // Winner gets 1.5 INR
-    alert(`Winner: ${winner.name} wins 1.5 INR!`);
-    // Your logic to record payments can go here
-  } else {
-    alert(`Winner: Player ${winnerIndex + 1}`);
-  }
-}
+// Paid Mode
+function playSnakePaid() {
+    const paypalDiv = document.getElementById('paypal-button-container') || document.createElement("div");
+    paypalDiv.id = "paypal-button-container";
+    if (!document.getElementById('paypal-button-container')) document.body.appendChild(paypalDiv);
 
-// Example start
-startGame();
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: { value: '2.00' }  // Rs 1 per player, 2 players
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Payment completed! Starting Paid Snake & Ladder.');
+                // TODO: Start your 2-player paid game logic here
+                // After game ends:
+                // Winner gets Rs 1.5, Rs 0.5 goes to PayPal rksingh9321@gmail.com
+            });
+        }
+    }).render('#paypal-button-container');
+}
