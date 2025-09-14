@@ -1,7 +1,5 @@
-{
-  "projects": {
-    "default": "rishigithubio"
-  },
-  "targets": {},
-  "etags": {}
-}
+{ 
+  "projects": { 
+    "default": "rishigithubio" 
+  } 
+} 
