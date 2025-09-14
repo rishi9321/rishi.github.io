@@ -1,15 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ludo</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <h1>Ludo</h1>
-  <div id="game"></div>
+// Detect if paid mode
+const urlParams = new URLSearchParams(window.location.search);
+const isPaid = urlParams.get('paid') === 'true';
 
-  <script src="js/ludo.js"></script>
-</body>
-</html>
+// Players and initial balance
+let players = [
+  { name: 'Player 1', balance: isPaid ? 0.25 : 0 },
+  { name: 'Player 2', balance: isPaid ? 0.25 : 0 },
+  { name: 'Player 3', balance: isPaid ? 0.25 : 0 },
+  { name: 'Player 4', balance: isPaid ? 0.25 : 0 }
+];
+
+// Start game
+function startGame() {
+  alert(isPaid ? "Paid Ludo game started!" : "Free Ludo game started!");
+  // Your Ludo game logic here...
+}
+
+// When game ends, distribute rewards if paid
+function endGame(winnerIndex) {
+  if(isPaid) {
+    const winner = players[winnerIndex];
+    winner.balance += 3; // Winner gets 3 INR
+    alert(`Winner: ${winner.name} wins 3 INR!`);
+    // Record the remaining Rs 1 to your PayPal account
+  } else {
+    alert(`Winner: ${players[winnerIndex].name}`);
+  }
+}
+
+// Example start
+startGame();

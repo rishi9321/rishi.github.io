@@ -2,38 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rishi's Game Portal</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=INR"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rishi's Game Hub</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Hello, I am Rishi 👋</h1>
-  <p>Welcome to my online game portal!</p>
-
-  <div class="game-card">
-    <h2>Snake & Ladder (2 Players)</h2>
-    <button onclick="startGame('snake','free')">Play Free</button>
-    <button onclick="startGame('snake','paid')">Play Paid ₹1</button>
-  </div>
-
-  <div class="game-card">
-    <h2>Ludo (4 Players)</h2>
-    <button onclick="startGame('ludo','free')">Play Free</button>
-    <button onclick="startGame('ludo','paid')">Play Paid ₹1</button>
-  </div>
-
-  <div class="game-card">
-    <h2>Call Break (4 Players)</h2>
-    <button onclick="startGame('callbreak','free')">Play Free</button>
-    <button onclick="startGame('callbreak','paid')">Play Paid ₹1</button>
-  </div>
-
-  <div id="paypal-button-container"></div>
-
-  <script src="firebase-config.js"></script>
-  <script src="game.js"></script>
+  <h1>Welcome to Rishi's Game Hub!</h1>
+  <h2>Games</h2>
+  <ul>
+    <li><a href="snake.html">Snake & Ladder</a></li>
+    <li><a href="ludo.html">Ludo</a></li>
+    <li><a href="callbreak.html">Call Break</a></li>
+  </ul>
 </body>
 </html>
-

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake & Ladder Game</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=INR"></script>
+</head>
+<body>
+  <h1>Snake & Ladder</h1>
+  <p>Choose a game mode:</p>
+
+  <!-- Free Game Button -->
+  <button onclick="startGame(2, false)">Start Free Game (2 Players)</button>
+
+  <h2>Paid Game</h2>
+  <p>Pay Rs 1 per player to play (Winner gets Rs 1.5, Rs 0.5 goes to PayPal)</p>
+  
+  <!-- PayPal button container -->
+  <div id="paypal-button-container"></div>
+
+  <script src="js/snake.js"></script> <!-- Your Snake JS logic -->
+
+  <script>
+    function startGame(players, paid) {
+      if(!paid) {
+        // Free game
+        startSnakeFree(players); // Your existing JS function
+      }
+    }
+
+    // Render PayPal button for paid mode
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        const players = 2; // fixed 2 players
+        const totalAmount = (players * 1).toFixed(2); // Rs 1 per player
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              currency_code: "INR",
+              value: totalAmount
+            },
+            payee: {
+              email_address: "rksingh9321@gmail.com"
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert("Payment successful! Starting Snake Paid Game.");
+          startSnakePaid(2); // Your JS function to start paid game
+        });
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rishi's Game Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- PayPal SDK for buttons -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=INR"></script>
+</head>
+<body>
+  <h1>Welcome to Rishi's Game Hub!</h1>
+
+  <h2>Snake & Ladder (2 Players)</h2>
+  <button onclick="snakeGame(2, false)">Play Free</button>
+  <button onclick="snakeGame(2, true)">Play Paid (Rs 1/player)</button>
+
+  <h2>Ludo (4 Players)</h2>
+  <button onclick="ludoGame(4, false)">Play Free</button>
+  <button onclick="ludoGame(4, true)">Play Paid (Rs 1/player)</button>
+
+  <h2>Call Break (4 Players)</h2>
+  <button onclick="callBreakGame(4, false)">Play Free</button>
+  <button onclick="callBreakGame(4, true)">Play Paid (Rs 1/player)</button>
+
+  <!-- JS Files -->
+  <script src="js/snake.js"></script>
+  <script src="js/ludo.js"></script>
+  <script src="js/callbreak.js"></script>
+</body>
+</html>
